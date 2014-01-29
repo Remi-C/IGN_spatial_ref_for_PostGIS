@@ -513,7 +513,7 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 		WHERE s_r_s_t_1.srid = s_r_s_t_2.srid;
 
 --deleting column srid_temp
-	ALTER TABLE spatial_ref_sys_temp DROP COLUMN srid_temp
+	ALTER TABLE spatial_ref_sys_temp DROP COLUMN srid_temp;
 
 --Inserting new spatial ref sys into postgis table from temp table
 	INSERT INTO public.spatial_ref_sys SELECT DISTINCT * FROM spatial_ref_sys_temp;
