@@ -517,6 +517,9 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 
 --Inserting new spatial ref sys into postgis table from temp table
 	INSERT INTO public.spatial_ref_sys SELECT DISTINCT * FROM spatial_ref_sys_temp;
+	
+--Dropping the temp table
+	DROP TABLE IF EXISTS spatial_ref_sys_temp;
 
 --Checking result
 	SELECT *
