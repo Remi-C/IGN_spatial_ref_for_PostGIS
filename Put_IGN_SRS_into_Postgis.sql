@@ -414,7 +414,7 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 	--mainly : we have to map the SRID value into the max allowed by postgis, which is : 910 000 to 998 999
 
 	--checking imported data
-	SELECT * FROM spatial_ref_sys_temp;
+	--SELECT * FROM spatial_ref_sys_temp;
 
 	--Adding a temp column srid_temp to hold resuslt of processing
 	ALTER TABLE spatial_ref_sys_temp ADD COLUMN srid_temp text;
@@ -424,9 +424,9 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 		--Mapping for SRID of type 110 XXX
 
 		--on affiche les srid qui commencent par 110 :
-		SELECT srid
-		FROM spatial_ref_sys_temp
-		WHERE CAST(srid AS text) ILIKE '110%';
+		--SELECT srid
+		--FROM spatial_ref_sys_temp
+		--WHERE CAST(srid AS text) ILIKE '110%';
 
 		--changing srid  to 911XXX where XXX are extracted.
 		WITH new_srid AS (
@@ -441,8 +441,8 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 
 
 		--Checking the result
-		SELECT * FROM spatial_ref_sys_temp
-		WHERE CAST(srid AS text) ILIKE '110%';
+		--SELECT * FROM spatial_ref_sys_temp
+		--WHERE CAST(srid AS text) ILIKE '110%';
 
 	
 
@@ -497,14 +497,14 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 
 
 --Checking result : no duplicates, every srid between 910000 and 998 999, no null value
-	SELECT srid_temp
-	FROM spatial_ref_sys_temp
-	GROUP BY srid_temp;
+	--SELECT srid_temp
+	--FROM spatial_ref_sys_temp
+	--GROUP BY srid_temp;
 
-	SELECT *
-	FROM spatial_ref_sys_temp
-	WHERE srid_temp ISNULL
-	OR CAST(srid_temp AS bigint) <910000 OR CAST(srid_temp AS bigint) > 998999;
+	--SELECT *
+	--FROM spatial_ref_sys_temp
+	--WHERE srid_temp ISNULL
+	--OR CAST(srid_temp AS bigint) <910000 OR CAST(srid_temp AS bigint) > 998999;
 
 --Updating column srid with column srid_temp
 	UPDATE spatial_ref_sys_temp AS s_r_s_t_1 
@@ -519,11 +519,11 @@ CREATE TABLE spatial_ref_sys_temp ( LIKE public.spatial_ref_sys);
 	INSERT INTO public.spatial_ref_sys SELECT DISTINCT * FROM spatial_ref_sys_temp;
 
 --Checking result
-	SELECT *
-	FROM public.spatial_ref_sys
-	WHERE ( auth_name ILIKE '%IGNF%' )
-	AND srtext ILIKE '%lambert%'
-	AND proj4text ILIKE '%93%';
+	--SELECT *
+	--FROM public.spatial_ref_sys
+	--WHERE ( auth_name ILIKE '%IGNF%' )
+	--AND srtext ILIKE '%lambert%'
+	--AND proj4text ILIKE '%93%';
 
 
 
