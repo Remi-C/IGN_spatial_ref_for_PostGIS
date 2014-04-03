@@ -1,0 +1,12 @@
+
+This file describe how to add french grid to Postgis :
+
+Assuming tpostgis uses proj4, and the base repository of proj4 is 
+/usr/share/proj :
+
+ - create a directory 'nad' in the /usr/share/proj dir
+ - copy the RAF09.gtx file into the 'nad' dir
+ - add the srid to postgres with the following definition : 
+	`'PROJCS["Lambert 93",GEOGCS["Réseau géodésique français 1993",DATUM["Réseau géodésique français 1993",SPHEROID["IAG GRS 1980",6378137.0000,298.2572221010000,AUTHORITY["IGNF","ELG037"]],TOWGS84[0.0000,0.0000,0.0000,0,0,0,0],AUTHORITY["IGNF","REG024"]],PRIMEM["Greenwich",0.000000000,AUTHORITY["IGNF","LGO01"]],UNIT["degree",0.01745329251994330],AXIS["Longitude",EAST],AXIS["Latitude",NORTH],AUTHORITY["IGNF","RGF93G"]],PROJECTION["Lambert_Conformal_Conic_2SP",AUTHORITY["IGNF","PRC0140"]],PARAMETER["semi_major",6378137.0000],PARAMETER["semi_minor",6356752.3141],PARAMETER["latitude_of_origin",46.500000000],PARAMETER["central_meridian",3.000000000],PARAMETER["standard_parallel_1",44.000000000],PARAMETER["standard_parallel_2",49.000000000],PARAMETER["false_easting",700000.000],PARAMETER["false_northing",6600000.000],UNIT["metre",1],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["IGNF","LAMB93"]]'`
+	`'+title=Lambert 93 +proj=lcc +geoidgrids=RAF09.gtx,@RAC09.gtx,@null +wktext +towgs84=0.0000,0.0000,0.0000 +a=6378137.0000 +rf=298.2572221010000 +lat_0=46.500000000 +lon_0=3.000000000 +lat_1=44.000000000 +lat_2=49.000000000 +x_0=700000.000 +y_0=6600000.000 +units=m +no_defs'`
+ - restart the postgres server
